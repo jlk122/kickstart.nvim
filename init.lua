@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -608,10 +608,11 @@ require('lazy').setup({
     'stevearc/conform.nvim',
     opts = {
       notify_on_error = false,
-      format_on_save = {
+      --[[format_on_save = {
         timeout_ms = 500,
         lsp_fallback = true,
       },
+      --]]
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -722,14 +723,16 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    'folke/tokyonight.nvim',
+    --'folke/tokyonight.nvim',
+    'rebelot/kanagawa.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      --vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'kanagawa'
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
@@ -800,6 +803,19 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+
+  { -- Show current context
+    'nvim-treesitter/nvim-treesitter-context',
+    -- build = ':TSUpdate',
+    config = function()
+      require('treesitter-context').setup{
+        enable = true,
+        line_numers = true,
+        mode = 'cursor',
+      }
+    end,
+
+  }
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
