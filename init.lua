@@ -118,10 +118,9 @@ vim.opt.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.opt.breakindent = true
 
--- Indent space 
+-- Indent space
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-
 
 -- Save undo history
 vim.opt.undofile = true
@@ -260,8 +259,8 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      -- TODO: put rest of opts into its own file 
-      on_attach = function (bufnr)
+      -- TODO: put rest of opts into its own file
+      on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
         local function map(mode, l, r, opts)
@@ -271,18 +270,26 @@ require('lazy').setup({
         end
 
         -- Navigation
-        map('n', ']c', function ()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
+        map('n', ']c', function()
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true})
+        end, { expr = true })
 
-        map('n', '[c', function ()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
+        map('n', '[c', function()
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true})
-      end
+        end, { expr = true })
+      end,
     },
   },
 
@@ -645,7 +652,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, xml = true }
         return {
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -864,14 +871,13 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter-context',
     -- build = ':TSUpdate',
     config = function()
-      require('treesitter-context').setup{
+      require('treesitter-context').setup {
         enable = true,
         line_numers = true,
         mode = 'cursor',
       }
     end,
-
-  }
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -913,7 +919,7 @@ require('lazy').setup({
     },
   },
 })
-require('lukas.keymaps')
+require 'lukas.keymaps'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
